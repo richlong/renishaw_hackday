@@ -1,0 +1,13 @@
+PODS:
+  - Alamofire (3.1.1)
+  - Charts (2.1.6)
+
+DEPENDENCIES:
+  - Alamofire
+  - Charts
+
+SPEC CHECKSUMS:
+  Alamofire: 9b0a7188b961a03914a99304488bd226b0e46c0e
+  Charts: 5e1e5ac23898e5b09d226a2fc3e9d86bc281937e
+
+COCOAPODS: 0.39.0

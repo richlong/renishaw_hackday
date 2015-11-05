@@ -103,7 +103,7 @@ class ViewController: UIViewController, ChartViewDelegate {
     
     func getDataForCity(city: String, completion:()-> Void) {
 
-        let cityQuery = String(format: "http://api.openweathermap.org/data/2.5/forecast/city?q=%@&APPID=4e86f8ef8bed6b9c9e1e980bda57c12b&units=metric", city)
+        let cityQuery = String(format: "http://api.openweathermap.org/data/2.5/forecast/city?q=%@&APPID=4e86f8ef8bed6b9c9e1e980bda57c12b&units=metric", city.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())!)
         Alamofire.request(.GET, cityQuery)
         .responseJSON { response in
             
@@ -134,15 +134,13 @@ class ViewController: UIViewController, ChartViewDelegate {
     
     
     func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {
-//        print("\(highlight)")
+        print("\(entry.value)")
         if dataSetIndex == 1 {
-            print("\(entry.value)")
-            print("\(entry)")
-            print("\(highlight)")
-            print("\(dataSetIndex)")
-            print("\(chartView)")
-
-
+//            print("\(entry.value)")
+//            print("\(entry)")
+//            print("\(highlight)")
+//            print("\(dataSetIndex)")
+//            print("\(chartView)")
         }
 
     }

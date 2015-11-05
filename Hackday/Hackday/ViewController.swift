@@ -10,31 +10,47 @@ import UIKit
 import SwiftyJSON
 import Alamofire
 import Charts
+import SwiftSpinner
 
 class ViewController: UIViewController, ChartViewDelegate {
     
     @IBOutlet weak var lineChartView: LineChartView!
-
-    var months: [String]!
-    var dataPoints = [String:Double]()
     
     var dataPointsX = [String]()
     var dataPointsY = [Double]()
-    
+    var rawCities = [String]()
     var cities = [String:UIColor]()
+    var colors = [UIColor]()
     var dataSets = [LineChartDataSet]()
     var highTemp:Double = 0.0
     var lowTemp:Double = 10.0
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         lineChartView.delegate = self
+        SwiftSpinner.show("Loading...")
         
-        cities["Cardiff"] = UIColor.redColor()
-        cities["Madrid"] = UIColor.blueColor()
-        cities["Paris"] = UIColor.yellowColor()
+        colors.append(UIColor.redColor())
+        colors.append(UIColor.blueColor())
+        colors.append(UIColor.yellowColor())
+        colors.append(UIColor.greenColor())
+        colors.append(UIColor.blackColor())
+        colors.append(UIColor.grayColor())
+
+        var c = 0;
+        for city in rawCities {
+            cities[city] = colors[c]
+            c++
+        }
+
+        let marker = Marker.init(color: UIColor.whiteColor(), font: UIFont.systemFontOfSize(12), insets: UIEdgeInsets.init(top: 8, left: 8, bottom: 20, right: 8))
+        
+        lineChartView.marker = marker
+        
+        lineChartView.drawMarkers = true
+        
+
 
         let xAxis = lineChartView.xAxis
         xAxis.labelTextColor = UIColor.redColor()
@@ -44,24 +60,7 @@ class ViewController: UIViewController, ChartViewDelegate {
         yAxis.labelTextColor = UIColor.blueColor()
         yAxis.spaceBetweenLabels = 10
         
-//        ChartXAxis *xAxis = _chartView.xAxis;
-//        xAxis.labelFont = [UIFont systemFontOfSize:12.f];
-//        xAxis.labelTextColor = UIColor.whiteColor;
-//        xAxis.drawGridLinesEnabled = NO;
-//        xAxis.drawAxisLineEnabled = NO;
-//        xAxis.spaceBetweenLabels = 1.0;
-//        
-//        ChartYAxis *leftAxis = _chartView.leftAxis;
-//        leftAxis.labelTextColor = [UIColor colorWithRed:51/255.f green:181/255.f blue:229/255.f alpha:1.f];
-//        leftAxis.customAxisMax = 200.0;
-//        leftAxis.drawGridLinesEnabled = YES;
-//        
-//        ChartYAxis *rightAxis = _chartView.rightAxis;
-//        rightAxis.labelTextColor = UIColor.redColor;
-//        rightAxis.customAxisMax = 900.0;
-//        rightAxis.startAtZeroEnabled = NO;
-//        rightAxis.customAxisMin = -200.0;
-//        rightAxis.drawGridLinesEnabled = NO;
+
         for (city,color):(String, UIColor) in cities {
             
             self.getDataForCity(city, completion: { () -> Void in
@@ -69,12 +68,14 @@ class ViewController: UIViewController, ChartViewDelegate {
                 
                 print(self.lowTemp)
                 print(self.highTemp)
+                SwiftSpinner.hide()
+                
+                self.lineChartView.animate(xAxisDuration: 2.0, yAxisDuration: 0.0)
+
             })
         }
-
     }
 
-   
     func setChartData(city:String, color:UIColor) {
         
         print("Outputting \(self.dataPointsX.count) items in \(city)")
@@ -83,22 +84,17 @@ class ViewController: UIViewController, ChartViewDelegate {
 
         var c = 0;
         for key in self.dataPointsX {
-
 //            print("dt: \(key) temp: \(self.dataPointsY[c])")
-
             xVals.append(key)
             yVals.append(ChartDataEntry.init(value: self.dataPointsY[c], xIndex:c))
             c++
         }
         
-        let set1 = LineChartDataSet.init(yVals: yVals, label: city)
-        set1.fillColor = color;
-        set1.setColor(color)
-        set1.setCircleColor(color)
-
-//        var dataSets = [LineChartDataSet]()
-        
-        self.dataSets.append(set1)
+        let set = LineChartDataSet.init(yVals: yVals, label: city)
+        set.fillColor = color;
+        set.setColor(color)
+        set.setCircleColor(color)
+        self.dataSets.append(set)
 
         let data = LineChartData.init(xVals: xVals, dataSets: self.dataSets)
 
@@ -110,12 +106,7 @@ class ViewController: UIViewController, ChartViewDelegate {
         let cityQuery = String(format: "http://api.openweathermap.org/data/2.5/forecast/city?q=%@&APPID=4e86f8ef8bed6b9c9e1e980bda57c12b&units=metric", city)
         Alamofire.request(.GET, cityQuery)
         .responseJSON { response in
-        //                print(response.request)  // original URL request
-        //                print(response.response) // URL response
-        //                print(response.data)     // server data
-        //                print(response.result)   // result of response serialization
-        
-        
+            
             let json = JSON(data: response.data!)
 
             self.dataPointsX = []
@@ -123,7 +114,7 @@ class ViewController: UIViewController, ChartViewDelegate {
             
             for (_,dataPoint):(String, JSON) in json["list"] {
             
-                print("dt: \(dataPoint["dt_txt"].string!) temp: \(dataPoint["main"]["temp"].number!)")
+//                print("dt: \(dataPoint["dt_txt"].string!) temp: \(dataPoint["main"]["temp"].number!)")
                 self.dataPointsX.append(dataPoint["dt_txt"].string!)
                 let temp = Double(dataPoint["main"]["temp"].number!)
                 self.dataPointsY.append(temp)
@@ -138,8 +129,22 @@ class ViewController: UIViewController, ChartViewDelegate {
             }
             
             completion()
-            
         }
+    }
+    
+    
+    func chartValueSelected(chartView: ChartViewBase, entry: ChartDataEntry, dataSetIndex: Int, highlight: ChartHighlight) {
+//        print("\(highlight)")
+        if dataSetIndex == 1 {
+            print("\(entry.value)")
+            print("\(entry)")
+            print("\(highlight)")
+            print("\(dataSetIndex)")
+            print("\(chartView)")
+
+
+        }
+
     }
 }
 

@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		114E1F5380BE07C063E9F4B1 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DD87A707B8161CDE211E54 /* Pods.framework */; };
+		A2272C0E1BEB9E5400933714 /* Marker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2272C0D1BEB9E5400933714 /* Marker.swift */; };
+		A2272C101BEBA34200933714 /* AddCity.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2272C0F1BEBA34200933714 /* AddCity.swift */; };
 		A253A6201BEA353700CA4A6E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253A61F1BEA353700CA4A6E /* AppDelegate.swift */; };
 		A253A6221BEA353700CA4A6E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A253A6211BEA353700CA4A6E /* ViewController.swift */; };
 		A253A6251BEA353700CA4A6E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A253A6231BEA353700CA4A6E /* Main.storyboard */; };
@@ -38,6 +40,8 @@
 		416924680849A4F10C9F7751 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		85D763EB3271305A46585BF5 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "../Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		96DD87A707B8161CDE211E54 /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A2272C0D1BEB9E5400933714 /* Marker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Marker.swift; sourceTree = "<group>"; };
+		A2272C0F1BEBA34200933714 /* AddCity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddCity.swift; sourceTree = "<group>"; };
 		A253A61C1BEA353700CA4A6E /* Hackday.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hackday.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A253A61F1BEA353700CA4A6E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A253A6211BEA353700CA4A6E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -106,7 +110,9 @@
 			children = (
 				A253A61F1BEA353700CA4A6E /* AppDelegate.swift */,
 				A253A6211BEA353700CA4A6E /* ViewController.swift */,
+				A2272C0D1BEB9E5400933714 /* Marker.swift */,
 				A253A6231BEA353700CA4A6E /* Main.storyboard */,
+				A2272C0F1BEBA34200933714 /* AddCity.swift */,
 				A253A6261BEA353700CA4A6E /* Assets.xcassets */,
 				A253A6281BEA353700CA4A6E /* LaunchScreen.storyboard */,
 				A253A62B1BEA353700CA4A6E /* Info.plist */,
@@ -333,6 +339,8 @@
 			files = (
 				A253A6221BEA353700CA4A6E /* ViewController.swift in Sources */,
 				A253A6201BEA353700CA4A6E /* AppDelegate.swift in Sources */,
+				A2272C101BEBA34200933714 /* AddCity.swift in Sources */,
+				A2272C0E1BEB9E5400933714 /* Marker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
